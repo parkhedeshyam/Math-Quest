@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Math Quest — Learn Through Play</title>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;800&family=Nunito:wght@600;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#FFF6E5;--card:#fff;--ink:#27264A;--soft:#66658A;--line:#F0E4C8;--ok:#14996A;--okb:#D9F5E8;--no:#E0612F;--nob:#FFE6DA;--pri:#4F4FD1;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--bg:#15152B;--card:#222245;--ink:#F4F2FF;--soft:#B5B3D9;--line:#34345F;--okb:#133B31;--nob:#44271D;--pri:#8E8EFF}}
+*{box-sizing:border-box}html,body{margin:0}
+body{background:var(--bg);color:var(--ink);font:700 16px/1.5 Nunito,system-ui,sans-serif;min-height:100vh}
+h1,h2,.brand,.qt,button.land b{font-family:'Baloo 2',system-ui,sans-serif;font-weight:800}
+button{font:inherit;cursor:pointer;color:inherit}
+:focus-visible{outline:3px solid var(--pri);outline-offset:2px}
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;display:flex;justify-content:space-between;align-items:center;padding:10px 16px;background:var(--bg);border-bottom:2px solid var(--line)}
+.brand{font-size:22px;border:0;background:none}
+.pill{background:#FFD23F;color:#27264A;padding:6px 14px;border-radius:99px;font-weight:800}
+main{max-width:920px;margin:0 auto;padding:18px 16px 60px}
+h1{font-size:clamp(28px,6vw,42px);margin:10px 0 0;line-height:1.15}
+.sub{color:var(--soft);max-width:560px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin-top:20px}
+button.land{--c:#5B5BD6;text-align:left;border:3px solid var(--c);border-radius:24px;padding:16px;background:color-mix(in srgb,var(--c) 14%,var(--card));display:flex;flex-direction:column;gap:4px;box-shadow:0 6px 0 var(--c);transition:transform .12s}
+button.land:hover{transform:translateY(-3px)}
+button.land i{font-style:normal;font-size:34px}button.land b{font-size:20px}
+small{color:var(--soft);font-weight:700}
+.lv{display:flex;gap:5px;margin-top:6px}.d{width:16px;height:8px;border-radius:9px;background:var(--line)}.d.on{background:var(--c)}
+.back{border:2px solid var(--line);background:var(--card);border-radius:99px;padding:6px 14px}
+.hd{display:flex;align-items:center;gap:12px;margin:14px 0}
+.hd i{font-style:normal;font-size:36px}.hd h2{margin:0;font-size:28px;color:var(--c)}
+.tabs,.lvs{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0}
+.tab{border:2px solid var(--line);background:var(--card);padding:10px 18px;border-radius:99px;min-height:44px}
+.tab.on{background:var(--c);border-color:var(--c);color:#fff}
+.tab:disabled{opacity:.45;cursor:not-allowed}
+.card{background:var(--card);border:2px solid var(--line);border-radius:24px;padding:20px;margin-top:14px}
+.qt{font-size:clamp(22px,5vw,30px);line-height:1.3}
+.row{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+.btn{border:0;border-radius:99px;padding:12px 22px;min-height:44px;background:var(--c);color:#fff;box-shadow:0 4px 0 rgba(0,0,0,.2)}
+.btn.g{background:var(--line);color:var(--ink);box-shadow:none}
+.btn.ok{background:var(--ok)}
+input{flex:1;min-width:150px;min-height:48px;font:800 22px Nunito,sans-serif;padding:8px 14px;border-radius:14px;border:3px solid var(--line);background:var(--bg);color:var(--ink)}
+input:focus{border-color:var(--c);outline:0}
+.fb{margin-top:14px;padding:12px 16px;border-radius:16px}
+.fb.ok{background:var(--okb);color:var(--ok)}.fb.no{background:var(--nob);color:var(--no)}
+.hint{margin-top:10px;background:color-mix(in srgb,var(--c) 14%,var(--card));padding:10px 14px;border-radius:14px}
+.ex{display:flex;gap:10px;margin-top:10px;padding:10px 14px;border-radius:14px;background:color-mix(in srgb,var(--c) 12%,var(--card));animation:pop .3s}
+.ex b{background:var(--c);color:#fff;border-radius:50%;min-width:26px;height:26px;text-align:center;font-size:14px;line-height:26px}
+.opt{display:block;width:100%;text-align:left;margin-top:10px;padding:14px 18px;border:3px solid var(--line);background:var(--bg);border-radius:18px;font-size:19px;min-height:48px}
+.opt:hover:not(:disabled){border-color:var(--c)}
+.opt.ok{background:var(--okb);border-color:var(--ok)}.opt.no{background:var(--nob);border-color:var(--no)}
+.bar{height:10px;background:var(--line);border-radius:9px;overflow:hidden}.bar span{display:block;height:100%;background:var(--c);transition:width .3s}
+.big{font-size:56px;text-align:center}
+#toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:12px 20px;border-radius:99px;z-index:9;display:none;max-width:90%;text-align:center}
+@keyframes pop{from{transform:scale(.96);opacity:0}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style></head><body>
+<div id="app"></div><div id="toast" role="status"></div>
+<script>
+const R=(a,b)=>Math.floor(Math.random()*(b-a+1))+a,f=n=>n.toLocaleString('en-IN'),sh=a=>a.map(x=>[Math.random(),x]).sort((p,q)=>p[0]-q[0]).map(x=>x[1]);
+const pv=n=>String(n).split('').map((d,i,a)=>d*10**(a.length-1-i)).filter(x=>x);
+const LV=['Seedling','Sprout','Explorer','Hero','Champion','Pro'];
+const T=[
+{k:'add',n:'Addition Grove',e:'🧮',c:'#14996A',g:'Put amounts together',cn:'Adding combines amounts into one total. Line up place values (ones under ones, tens under tens) and carry 1 to the next column whenever a column reaches 10 or more.'},
+{k:'sub',n:'Subtraction Valley',e:'➖',c:'#E0612F',g:'Find what is left',cn:'Subtracting finds what remains or the gap between two numbers. When a top digit is too small, borrow 1 from the next place to the left. Check by adding your answer back.'},
+{k:'mul',n:'Multiplication Meadow',e:'✖️',c:'#D99A00',g:'Equal groups, fast',cn:'Multiplying is adding equal groups. Break the bigger number into place values (like 40 + 6), multiply each part, then add the parts together.'},
+{k:'div',n:'Division Bay',e:'➗',c:'#1B8CA8',g:'Share things fairly',cn:'Dividing shares a total into equal groups. Ask: how many groups of this size fit? A remainder is what is left over, and it is always smaller than the divisor.'},
+{k:'tab',n:'Table Town',e:'🔢',c:'#9254C8',g:'Facts you can count on',cn:'Every multiplication fact has division neighbours: 7 × 8 = 56, so 56 ÷ 7 = 8 and 56 ÷ 8 = 7. Learn the facts as a family and they get easy.'},
+{k:'word',n:'Story Woods',e:'📖',c:'#4F4FD1',g:'Numbers hiding in stories',cn:'Read the story, spot what is happening (joining, taking away, grouping, sharing), then solve one step at a time. Write the steps so you can check them.'},
+{k:'mix',n:'Explorer Peaks',e:'🧩',c:'#D6457E',g:'Everything, plus patterns',cn:'Mixed puzzles use every skill: add, subtract, multiply, divide and number patterns. First decide which operation each clue needs.'}];
+const G={};
+const rng=l=>[[10,99],[100,999],[1000,9999],[10000,99999]][l-1];
+G.add=l=>{if(l==5){const a=R(10000,60000),b=R(10000,40000);return{t:`${f(a)} + ___ = ${f(a+b)}`,a:b,h:'Subtract the part you know from the total.',ex:[`We need the missing part, so subtract: ${f(a+b)} − ${f(a)}.`,`Subtract from the ones place and borrow when needed.`,`Missing number = ${f(b)}. Check: ${f(a)} + ${f(b)} = ${f(a+b)}.`]}}
+const [lo,hi]=rng(l),a=R(lo,hi),b=R(lo,hi);return{t:`${f(a)} + ${f(b)} = ?`,a:a+b,h:'Add ones first, then tens, then hundreds. Carry when a column reaches 10.',ex:[`Break up ${f(a)} = ${pv(a).map(f).join(' + ')}`,`Break up ${f(b)} = ${pv(b).map(f).join(' + ')}`,`Add column by column from the ones place, carrying when you reach 10.`,`${f(a)} + ${f(b)} = ${f(a+b)}`]}};
+G.sub=l=>{if(l==5){const b=R(2000,9000),c=R(3000,9000);return{t:`___ − ${f(b)} = ${f(c)}`,a:b+c,h:'Add the two numbers you can see.',ex:[`Subtraction is undone by addition.`,`${f(c)} + ${f(b)} = ${f(b+c)}`,`Check: ${f(b+c)} − ${f(b)} = ${f(c)}.`]}}
+const [lo,hi]=rng(l);let a=R(lo,hi),b=R(lo,hi);if(a<b)[a,b]=[b,a];if(a==b)a++;return{t:`${f(a)} − ${f(b)} = ?`,a:a-b,h:'Start at the ones place. Borrow 1 from the next place if the top digit is smaller.',ex:[`Start at the ones place: can we take away without borrowing?`,`If not, borrow 1 ten (worth 10 ones) from the next column.`,`${f(a)} − ${f(b)} = ${f(a-b)}`,`Check by adding: ${f(a-b)} + ${f(b)} = ${f(a)} ✔`]}};
+G.mul=l=>{if(l==5){const a=R(11,30),b=R(11,30);return{t:`${a} × ___ = ${f(a*b)}`,a:b,h:'Divide the product by the factor you know.',ex:[`Undo multiplication with division.`,`${f(a*b)} ÷ ${a} = ${b}`,`Check: ${a} × ${b} = ${f(a*b)}`]}}
+const a=[R(12,99),R(100,999),R(12,99),R(100,999)][l-1],b=[R(2,9),R(2,9),R(11,40),R(11,40)][l-1],p=pv(b);return{t:`${a} × ${b} = ?`,a:a*b,h:'Split the second number into tens and ones, multiply each, then add.',ex:[`Split ${b} into ${p.join(' + ')}.`,...p.map(x=>`${a} × ${x} = ${f(a*x)}`),`Add the parts: ${p.map(x=>f(a*x)).join(' + ')} = ${f(a*b)}`]}};
+G.div=l=>{if(l==5){const b=R(6,19),q=R(20,90),r=R(1,b-1),a=b*q+r;return{t:`${a} ÷ ${b}: what is the remainder?`,a:r,h:'Find the biggest multiple of the divisor that fits, then see what is left.',ex:[`${b} × ${q} = ${b*q}, the biggest multiple that fits.`,`${a} − ${b*q} = ${r}`,`Remainder = ${r}, which is less than ${b} ✔`]}}
+const b=[R(2,9),R(2,9),R(11,25),R(11,25)][l-1],q=[R(10,99),R(100,300),R(10,60),R(50,300)][l-1],a=b*q;return{t:`${f(a)} ÷ ${b} = ?`,a:q,h:`Think: how many groups of ${b} fit in ${f(a)}? Use multiplication to check.`,ex:[`Ask: ${b} × ? = ${f(a)}`,`Work from the biggest place value, one digit at a time.`,`${f(a)} ÷ ${b} = ${q}`,`Check: ${b} × ${q} = ${f(a)} ✔`]}};
+G.tab=l=>{if(l==5){const a=R(11,20),b=R(6,12);return{t:`${a*b} ÷ ${a} = ?`,a:b,h:`Use the fact family of ${a} × ? = ${a*b}.`,ex:[`Division fact from a multiplication fact.`,`${a} × ${b} = ${a*b}`,`So ${a*b} ÷ ${a} = ${b}`]}}
+if(l==2){const a=R(3,12),b=R(3,12);return{t:`${a} × ___ = ${a*b}`,a:b,h:`Which number times ${a} makes ${a*b}?`,ex:[`Think of the ${a} times table.`,`${a} × ${b} = ${a*b}`,`Missing factor = ${b}`]}}
+const a=[R(2,9),0,R(11,15),R(16,20)][l-1],b=[R(2,9),0,R(3,9),R(3,12)][l-1];return{t:`${a} × ${b} = ?`,a:a*b,h:`Break ${a} into tens and ones: ${pv(a).join(' + ')}.`,ex:[`Split ${a} = ${pv(a).join(' + ')}`,...pv(a).map(x=>`${x} × ${b} = ${x*b}`),`Add: ${a*b}`]}};
+G.word=l=>{const s=l>2?R(5,15):0,k=R(3,9)+s;const W=[()=>{const n=R(4,9)+s,m=R(10,30)+s*2,x=R(5,n*m-1>60?60:n*m-1);return{t:`A shop has ${n} boxes with ${m} pens in each. It sells ${x} pens. How many pens are left?`,a:n*m-x,h:'First find the total pens, then take away the ones sold.',ex:[`Total pens = ${n} × ${m} = ${n*m}`,`Left = ${n*m} − ${x} = ${n*m-x}`]}},
+()=>{const per=R(20,40)+s,g=R(3,9),tot=per*g,A=R(10,tot-5);return{t:`A school has ${A} boys and ${tot-A} girls. They sit equally in ${g} buses. How many students ride in each bus?`,a:per,h:'Add the boys and girls first, then share equally.',ex:[`Students = ${A} + ${tot-A} = ${tot}`,`Per bus = ${tot} ÷ ${g} = ${per}`]}},
+()=>{const a=R(200,900)*(l>3?10:1),b=R(100,500)*(l>3?10:1),c=R(50,Math.min(a+b-1,400));return{t:`Riya had ₹${f(a)}. She earned ₹${f(b)} and then spent ₹${f(c)}. How much money does she have now?`,a:a+b-c,h:'Add what she earned, then subtract what she spent.',ex:[`After earning: ${f(a)} + ${f(b)} = ${f(a+b)}`,`After spending: ${f(a+b)} − ${f(c)} = ${f(a+b-c)}`]}},
+()=>{const q=R(4,12),n=R(10,40)+s,sold=R(2,n-1);return{t:`A farmer packs ${q*n} mangoes into bags of ${q}. He sells ${sold} bags. How many bags are left?`,a:n-sold,h:'Find the number of bags first.',ex:[`Bags = ${q*n} ÷ ${q} = ${n}`,`Left = ${n} − ${sold} = ${n-sold}`]}}];return W[R(0,W.length-1)]()};
+G.mix=l=>{const r=R(0,5);if(r<4)return G[['add','sub','mul','div'][r]](Math.min(l,4));if(r==4)return G.word(l);
+const s=R(2,9),d=R(2,9);if(l<3){const q=[0,1,2,3].map(i=>s+d*i);return{t:`Pattern: ${q.join(', ')}, ___`,a:s+d*4,h:'How much is added each time?',ex:[`Differences: ${d}, ${d}, ${d}`,`Rule: add ${d} each time.`,`${q[3]} + ${d} = ${s+d*4}`]}}
+if(l<5){const m=R(2,3),q=[s,s*m,s*m*m,s*m**3];return{t:`Pattern: ${q.join(', ')}, ___`,a:s*m**4,h:'Is each number a multiple of the one before?',ex:[`${q[1]} ÷ ${q[0]} = ${m}`,`Rule: multiply by ${m} each time.`,`${q[3]} × ${m} = ${s*m**4}`]}}
+const q=[s],g=[d];for(let i=1;i<5;i++){q.push(q[i-1]+g[i-1]);g.push(g[i-1]+1)}return{t:`Pattern: ${q.slice(0,5).join(', ')}, ___`,a:q[4]+g[4],h:'Look at the gaps between numbers. Do they change?',ex:[`Gaps: ${g.slice(0,4).join(', ')}`,`The gap grows by 1 each time, so the next gap is ${g[4]}.`,`${q[4]} + ${g[4]} = ${q[4]+g[4]}`]}};
+const gq=(k,l)=>G[k](l>5?R(4,5):l);G.grand=()=>gq(['add','sub','mul','div','tab','word','mix'][R(0,6)],6);
+const GR={k:'grand',n:'Grand Final',e:'👑',c:'#A86B00',g:'30 mixed top-level questions'};
+function opts(a){const ds=sh(a>30?[10,-10,100,-100,1,-1,1000]:[1,-1,2,-2,3,-3,10]);const o=[a];for(const x of ds){if(o.length<4&&a+x>=0&&!o.includes(a+x))o.push(a+x)}return sh(o)}
+let P={stars:0,u:{},c:{}};try{P=Object.assign(P,JSON.parse(localStorage.getItem('mq')||'{}'))}catch(e){}
+const save=()=>{try{localStorage.setItem('mq',JSON.stringify(P))}catch(e){}};
+const un=t=>P.u[t]||1,TT=k=>T.find(t=>t.k==k)||GR;
+function toast(m){const e=document.getElementById('toast');e.textContent=m;e.style.display='block';clearTimeout(toast.t);toast.t=setTimeout(()=>e.style.display='none',3200)}
+function credit(t,l){P.stars++;const k=t+l;P.c[k]=(P.c[k]||0)+1;if(P.c[k]>=5&&l===un(t)&&l<6){P.u[t]=l+1;toast(`🎉 Level ${l+1} unlocked: ${LV[l]}!`)}save()}
+const GOOD=['🌟 Brilliant!','🎉 You got it!','💪 Great thinking!','🚀 Super work!','😎 Nailed it!'],TRY=['🤔 Almost. Check one step again.','🌱 Not yet. Try a hint!','💡 Close. Look at each place value.'];
+let S={v:'home'};
+const A={
+go(k){S={v:'t',t:k,m:k=='grand'?'final':'learn',l:1};A.fresh()},home(){S={v:'home'};draw()},
+fresh(){const g=l=>gq(S.t,l);if(S.m=='learn'){S.e=g(S.l);S.i=0}else if(S.m=='play'){S.q=g(S.l);S.fb=null;S.h=0;S.ok=false;S.val='';S.n=S.n||0}else{const n=S.m=='final'?30:10,L=[];for(let i=0;i<n;i++){let q;if(S.m=='story')q=gq('word',S.l);else if(S.m=='final')q=S.t=='grand'?G.grand():gq(i%3==2?'word':S.t,6);else q=g(S.l);L.push({q,o:opts(q.a)})}S.z={L,i:0,sel:null,sc:0,w:[]}}draw()},
+mode(m){S.m=m;A.fresh()},lvl(l){if(l>un(S.t))return;S.l=l;A.fresh()},
+step(){S.i++;draw()},
+check(){const v=document.getElementById('in').value;S.val=v;const n=Number(String(v).replace(/[,₹\s]/g,''));if(v.trim()===''||isNaN(n)){S.fb={ok:0,m:'✏️ Type a number first.'};return draw()}
+if(n===S.q.a){S.ok=true;S.n++;S.fb={ok:1,m:GOOD[R(0,4)]};credit(S.t,S.l)}else S.fb={ok:0,m:TRY[R(0,2)]};draw()},
+hint(){S.h=1;draw()},show(){S.val=String(S.q.a);S.ok=true;S.fb={ok:1,m:`The answer is ${f(S.q.a)}. Read the steps below, then try the next one!`};S.h=2;draw()},
+pick(i){const z=S.z,x=z.L[z.i];if(z.sel!==null)return;z.sel=i;if(x.o[i]===x.q.a){z.sc++;S.m=='quiz'?credit(S.t,S.l):(P.stars++,save())}else{z.w.push(x);P.m=(P.m||[]).concat([{t:x.q.t,a:x.q.a}]).slice(-30);save()}draw()},
+nextq(){S.z.i++;S.z.sel=null;draw()}};
+const dots=t=>[1,2,3,4,5,6].map(i=>`<span class="d${i<=un(t.k)?' on':''}"></span>`).join('');
+function home(){return`<div class=top><button class=brand onclick="A.home()">🚀 Math Quest</button><span class=pill>⭐ ${P.stars}</span></div><main><h1>Learn it. Play it. Level up!</h1><p class=sub>Pick a land. See how it works, play practice rounds, then test yourself with a quiz. No timers. Mistakes are how we learn.</p><div class=grid>${T.map(t=>`<button class=land style="--c:${t.c}" onclick="A.go('${t.k}')"><i>${t.e}</i><b>${t.n}</b><small>${t.g}</small><div class=lv>${dots(t)}</div><small>Level ${un(t.k)} of 6: ${LV[un(t.k)-1]}</small></button>`).join('')}</div><button class=land style="--c:#A86B00;margin-top:16px;width:100%" onclick="A.go('grand')"><i>👑</i><b>Grand Final: 30 questions</b><small>All lands mixed at top level. Needs 40 ⭐ (you have ${P.stars}).</small></button>${bd()}</main>`}
+const bd=()=>{const b=Object.keys(P.b||{}),m=P.m||[];return`<div class=card><b>🏅 Badges (${b.length})</b><p>${b.length?b.map(k=>(k.endsWith('story')?'📚 Story Master ':'👑 Final Champion ')+TT(k.replace(/story|final/,'')).e).join(' · '):'Score 70% in a Stories test or a Final to earn badges.'}</p></div><div class=card><b>📝 Mistake notebook (${m.length})</b>${m.slice(-5).reverse().map(x=>`<div class=ex><span>${x.t}<br><b style="color:var(--ok)">Answer: ${f(x.a)}</b></span></div>`).join('')||'<p>Wrong quiz answers show up here so you can review them.</p>'}</div>`};
+function topic(){const t=TT(S.t),M=S.t=='grand'?[['final','👑 Final 30']]:[['learn','📖 Learn'],['play','🎮 Play'],['quiz','🏆 Quiz'],['story','📚 Stories'],['final','👑 Final 30']];
+let h=`<div class=top><button class=brand onclick="A.home()">🚀 Math Quest</button><span class=pill>⭐ ${P.stars}</span></div><main style="--c:${t.c}"><button class=back onclick="A.home()">← All lands</button><div class=hd><i>${t.e}</i><div><h2>${t.n}</h2><small>${t.g}</small></div></div>
+<div class=tabs role=tablist>${M.map(m=>`<button class="tab${S.m==m[0]?' on':''}" onclick="A.mode('${m[0]}')">${m[1]}</button>`).join('')}</div>
+<div class=lvs>${(S.m=='final'?[]:[1,2,3,4,5,6]).map(l=>`<button class="tab${S.l==l?' on':''}" ${l>un(S.t)?'disabled':''} onclick="A.lvl(${l})">${l>un(S.t)?'🔒':'⭐'} L${l} ${LV[l-1]}</button>`).join('')}</div>`;
+if(S.m=='final'&&(S.t=='grand'?P.stars<40:un(S.t)<4)){h+=`<div class=card><div class=big>🔒</div><p style="text-align:center">${S.t=='grand'?'Earn 40 ⭐ stars':'Reach Level 4 here'} to open the 30-question final.</p></div>`}else if(S.m=='learn'){const e=S.e,end=S.i>=e.ex.length-1;h+=`<div class=card><b>💡 Big idea</b><p>${t.cn}</p></div><div class=card><small>Worked example. Tap Next to reveal each step.</small><div class=qt>${e.t}</div>${e.ex.slice(0,S.i+1).map((x,i)=>`<div class=ex><b>${i+1}</b><span>${x}</span></div>`).join('')}<div class=row>${end?`<button class=btn onclick="A.fresh()">🔄 New example</button><button class="btn ok" onclick="A.mode('play')">🎮 Let me play</button>`:`<button class=btn onclick="A.step()">Next step ▶</button>`}</div></div>`}
+else if(S.m=='play'){const q=S.q;h+=`<div class=card><small>Level ${S.l}. Solved this session: ${S.n}. Every 5 right answers can unlock the next level.</small><div class=qt>${q.t}</div><div class=row><input id=in inputmode=numeric autocomplete=off placeholder="Your answer" value="${S.val}" ${S.ok?'readonly':''}>${S.ok?'':`<button class=btn onclick="A.check()">Check ✔</button>`}</div>${S.fb?`<div class="fb ${S.fb.ok?'ok':'no'}" role=status>${S.fb.m}</div>`:''}${S.h?`<div class=hint>💡 ${q.h}</div>`:''}${S.h==2?q.ex.map((x,i)=>`<div class=ex><b>${i+1}</b><span>${x}</span></div>`).join(''):''}<div class=row>${S.ok?`<button class="btn ok" onclick="A.fresh()">Next question ▶</button>`:`<button class="btn g" onclick="A.hint()">💡 Hint</button><button class="btn g" onclick="A.show()">👀 Show me</button>`}</div></div>`}
+else{const z=S.z,n=z.L.length;if(z.i>=n){const p=z.sc,u=un(S.t),pass=p/n>=.7;if(pass&&S.m!='quiz'){P.b=P.b||{};P.b[S.t+S.m]=1;save()}h+=`<div class=card><div class=big>${pass?'🏆':p/n>=.5?'🌟':'🌱'}</div><h2 style="text-align:center">You scored ${p} out of ${n}</h2><p style="text-align:center">${pass?'Champion work! You passed.':p/n>=.5?'Good going. Review and try again!':'Every try makes you stronger. Visit Learn, then try again!'} (+${p} ⭐)</p>${z.w.length?`<b>Let’s review:</b>${z.w.map(x=>`<div class=ex><span><b style="all:unset">${x.q.t}</b> → <b style="all:unset;color:var(--ok)">${f(x.q.a)}</b></span></div>`).join('')}`:''}<div class=row><button class=btn onclick="A.fresh()">🔄 New quiz</button>${S.l<6&&u>S.l?`<button class="btn ok" onclick="A.lvl(${S.l+1})">Next level ▶</button>`:''}<button class="btn g" onclick="A.mode('learn')">📖 Learn</button></div></div>`}
+else{const x=z.L[z.i],d=z.sel!==null;h+=`<div class=card><div class=bar><span style="width:${z.i/n*100}%"></span></div><small>Question ${z.i+1} of ${n}</small><div class=qt>${x.q.t}</div>${x.o.map((o,i)=>`<button class="opt${d?o===x.q.a?' ok':i===z.sel?' no':'':''}" ${d?'disabled':''} onclick="A.pick(${i})">${f(o)}</button>`).join('')}${d?`<div class="fb ${x.o[z.sel]===x.q.a?'ok':'no'}" role=status>${x.o[z.sel]===x.q.a?GOOD[R(0,4)]:'Not this time. The answer is '+f(x.q.a)+'.'}</div>${x.o[z.sel]!==x.q.a?x.q.ex.map((e,i)=>`<div class=ex><b>${i+1}</b><span>${e}</span></div>`).join(''):''}<div class=row><button class="btn ok" onclick="A.nextq()">${z.i==n-1?'See my score 🏁':'Next ▶'}</button></div>`:''}</div>`}}
+return h+'</main>'}
+function draw(){document.getElementById('app').innerHTML=S.v=='home'?home():topic();const i=document.getElementById('in');if(i){if(!S.ok)i.focus();i.onkeydown=e=>{if(e.key=='Enter'&&!S.ok)A.check()}}}
+draw();
+</script></body></html>
